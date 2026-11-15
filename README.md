@@ -60,7 +60,7 @@ API references: [REAPER ReaScript](https://www.reaper.fm/sdk/reascript/reascript
 
 ### Publishing ReaPack updates
 
-After changing the main script **or any supporting library**, increment `@version` and update `@changelog` in `reaper/REAPER Plugin Organizer.lua`, then commit and push to `main`. The **ReaPack index** GitHub workflow validates the package, runs portable tests, generates `index.xml` using the official `reapack-index` tool, checks its file list and checksums, and commits the updated index. It can also be run manually from GitHub Actions.
+After changing the main script **or any supporting library**, increment `@version` and update `@changelog` in `reaper/REAPER Plugin Organizer.lua`, then commit and push to `main`. The **ReaPack index** GitHub workflow validates the package, runs portable tests, generates `index.xml` using the official `reapack-index` tool, checks its file list and commit-pinned source contents, and commits the updated index. It can also be run manually from GitHub Actions.
 
 Download URLs are pinned to the source commit so published versions stay unchanged. The index includes only the main script and `reaper/lib/*.lua`, not the manual installer, browser utility, or tests. Existing versions remain in the index; publish a new version rather than editing a released one. To validate locally after generating the index, run `python3 -B tests/test_reapack.py`.
 

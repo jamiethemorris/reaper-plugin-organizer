@@ -51,7 +51,9 @@ class ReaPackPackageTest(unittest.TestCase):
             self.assertEqual(path, f'reaper/{target}')
             data = subprocess.check_output(['git', 'show', f'{commit}:{path}'], cwd=ROOT)
             self.assertEqual(data, (ROOT / path).read_bytes(), 'Bump @version after runtime changes')
-            self.assertEqual(source.get('hash'), '1220' + hashlib.sha256(data).hexdigest())
+            # ReaPack's hash attribute is optional; reapack-index may omit it.
+            if source.get('hash') is not None:
+                self.assertEqual(source.get('hash'), '1220' + hashlib.sha256(data).hexdigest())
 
 
 if __name__ == '__main__':

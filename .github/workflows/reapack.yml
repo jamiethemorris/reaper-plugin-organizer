@@ -48,7 +48,7 @@ jobs:
       - name: Generate index from the current package
         # Scan the current file, not pre-ReaPack history with incomplete metadata.
         run: reapack-index --scan 'reaper/REAPER Plugin Organizer.lua' --no-commit --strict
-      - name: Verify package files, platforms, actions and checksums
+      - name: Verify package files, platforms, actions and source contents
         run: python3 -B tests/test_reapack.py
       - name: Publish index
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
