@@ -10,7 +10,6 @@
 -- @provides
 --   [darwin main=main] .
 --   [darwin nomain] lib/*.lua
--- @requires ReaImGui 0.10+, SWS Extension
 
 local r = reaper
 local directory = debug.getinfo(1, 'S').source:sub(2):match('^(.*)[/\\]')
