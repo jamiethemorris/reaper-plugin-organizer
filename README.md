@@ -6,6 +6,24 @@ A macOS plugin visibility manager with a dockable window inside REAPER. The orig
 
 Requires REAPER 7, ReaImGui 0.10+, and SWS. No Node, browser, server, or compiled extension is needed for this version.
 
+### Install with ReaPack (recommended)
+
+1. Install [ReaPack](https://reapack.com/), [ReaImGui](https://github.com/cfillion/reaimgui), and [SWS](https://www.sws-extension.org/) if needed. Dependencies are installed separately; restart REAPER after installing extensions.
+2. Open **Extensions > ReaPack > Import repositories** and paste:
+
+   ```text
+   https://raw.githubusercontent.com/jamiethemorris/reaper-plugin-organizer/main/index.xml
+   ```
+
+3. Open **Extensions > ReaPack > Browse packages**, search for **REAPER Plugin Organizer**, choose **Install**, then **Apply**.
+4. Run **Script: REAPER Plugin Organizer.lua** from **Actions > Show action list**. ReaPack installs the supporting libraries and registers this action automatically; do not run the manual installer.
+
+This package is macOS-only. For updates, save pending organizer changes and close its window, run **Extensions > ReaPack > Synchronize packages**, then reopen the action.
+
+If you previously used the manual installer, remove its old action from the Actions list and reassign any shortcut/toolbar button to the ReaPack action. The manual copy lives under `Scripts/REAPER Plugin Organizer`; ReaPack uses its own repository directory. Removing the old action does not delete your plug-in configuration or backups.
+
+### Manual installation (without ReaPack)
+
 1. In REAPER, open **Actions > Show action list**.
 2. Choose **New action > Load ReaScript** and load `reaper/Install Plugin Organizer.lua` from this repository.
 3. Run the installer once. It copies the app into your REAPER resource folder, registers **Script: REAPER Plugin Organizer.lua**, and opens it.
@@ -28,7 +46,7 @@ The script reads the caches for the running macOS architecture, including VST sh
 
 Duplicate matching requires the same recognizable manufacturer and a normalized product name (or a cached original name/file identity when renamed). Unknown manufacturers and more substantial naming differences may not match. A "no other match found" result means no match in the loaded cache, not that the product is unavailable in that format.
 
-To update, rerun the installer. An already-open organizer is left running to protect unsaved changes; close and reopen it after saving or discarding them.
+For manual-install updates, rerun the installer. An already-open organizer is left running to protect unsaved changes; close and reopen it after saving or discarding them.
 
 Saves preserve custom names, instrument markers, and plugin identifiers. They use SWS's INI API so REAPER's file cache stays coherent, check for conflicting edits, and back up all affected files before writing. Backups are under `PluginOrganizerBackups` in the REAPER resource folder; **File > Open backups folder** opens them. To restore, quit REAPER and copy the backed-up INI files to the resource folder. `manifest.txt` identifies any files that did not exist before that save.
 
@@ -39,6 +57,12 @@ REAPER's FX browser option **Show in FX list > Plug-ins whose name begins with #
 Run `lua reaper/tests/run.lua` for parser and selection tests. Load the same test script into REAPER to also run save, backup, conflict, and rollback tests through the real SWS API. Tests use temporary fixtures under `build/`; they never edit your plugin configuration.
 
 API references: [REAPER ReaScript](https://www.reaper.fm/sdk/reascript/reascripthelp.html), [ReaImGui](https://github.com/cfillion/reaimgui), [SWS profile API](https://github.com/reaper-oss/sws/blob/master/ReaScript.cpp).
+
+### Publishing ReaPack updates
+
+After changing the main script **or any supporting library**, increment `@version` and update `@changelog` in `reaper/REAPER Plugin Organizer.lua`, then commit and push to `main`. The **ReaPack index** GitHub workflow validates the package, runs portable tests, generates `index.xml` using the official `reapack-index` tool, checks its file list and checksums, and commits the updated index. It can also be run manually from GitHub Actions.
+
+Download URLs are pinned to the source commit so published versions stay unchanged. The index includes only the main script and `reaper/lib/*.lua`, not the manual installer, browser utility, or tests. Existing versions remain in the index; publish a new version rather than editing a released one. To validate locally after generating the index, run `python3 -B tests/test_reapack.py`.
 
 ## Original Browser Version
 

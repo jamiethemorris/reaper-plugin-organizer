@@ -1,0 +1,62 @@
+name: ReaPack index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'reaper/**'
+      - 'tests/test_reapack.py'
+      - '.reapack-index.conf'
+      - '.github/workflows/reapack.yml'
+  pull_request:
+    paths:
+      - 'reaper/**'
+      - 'tests/test_reapack.py'
+      - '.reapack-index.conf'
+      - '.github/workflows/reapack.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reapack-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+      - name: Install build and test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake pkg-config pandoc lua5.4
+          gem install reapack-index -v 1.2.6 --no-document
+      - name: Validate package metadata
+        run: reapack-index --check --strict
+      - name: Run portable Lua tests
+        run: lua5.4 reaper/tests/run.lua
+      - name: Generate index from the current package
+        # Scan the current file, not pre-ReaPack history with incomplete metadata.
+        run: reapack-index --scan 'reaper/REAPER Plugin Organizer.lua' --no-commit --strict
+      - name: Verify package files, platforms, actions and checksums
+        run: python3 -B tests/test_reapack.py
+      - name: Publish index
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- index.xml
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update ReaPack index'
+            git push origin HEAD:main
+          fi

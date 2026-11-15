@@ -1,6 +1,15 @@
 -- @description REAPER Plugin Organizer
--- @version 1.2.0
--- @about Dockable VST, VST3, AU and CLAP visibility manager for macOS.
+-- @version 1.2.1
+-- @author jamiethemorris
+-- @about
+--   Dockable VST, VST3, AU and CLAP visibility manager for macOS.
+--   Requires REAPER 7, ReaImGui 0.10+ and the SWS Extension (install separately).
+--   Run REAPER Plugin Organizer from the Actions list after installation.
+-- @link https://github.com/jamiethemorris/reaper-plugin-organizer
+-- @changelog First ReaPack release; installs the action and supporting libraries together.
+-- @provides
+--   [darwin main=main] .
+--   [darwin nomain] lib/*.lua
 -- @requires ReaImGui 0.10+, SWS Extension
 
 local r = reaper
