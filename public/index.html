@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>REAPER Plugin Organizer</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="toolbar">
+        <div class="search-wrap">
+          <label for="search">Search</label>
+          <input id="search" type="search" autocomplete="off" placeholder="Plugin, manufacturer, type">
+        </div>
+
+        <div class="segmented" aria-label="Visibility filter">
+          <button class="segment active" data-filter="all" type="button">All</button>
+          <button class="segment" data-filter="visible" type="button">Visible</button>
+          <button class="segment" data-filter="hidden" type="button">Hidden</button>
+        </div>
+
+        <div class="spacer"></div>
+
+        <button id="show-selected" type="button" disabled>Show</button>
+        <button id="hide-selected" type="button" disabled>Hide</button>
+        <button id="reload" type="button">Reload</button>
+        <button id="save" class="primary" type="button" disabled>Save</button>
+      </header>
+
+      <section class="statusbar" aria-live="polite">
+        <span id="count">0 shown</span>
+        <span id="visible-count">0 visible</span>
+        <span id="hidden-count">0 hidden</span>
+        <span id="dirty-state"></span>
+        <span id="message"></span>
+      </section>
+
+      <section class="table-wrap" aria-label="Plugins">
+        <table>
+          <thead>
+            <tr>
+              <th class="check-column">Visible</th>
+              <th data-sort="manufacturer">Manufacturer</th>
+              <th data-sort="pluginType">Type</th>
+              <th data-sort="name">Name</th>
+              <th data-sort="sourceDisplayName">File</th>
+            </tr>
+          </thead>
+          <tbody id="plugins-body"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

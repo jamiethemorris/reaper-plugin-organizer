@@ -1,0 +1,15 @@
+build/
+.build/
+.DS_Store
+
+# Local dependencies, credentials, logs, and REAPER user data
+node_modules/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+*.ini
+*.bak*
+PluginOrganizerBackups/
