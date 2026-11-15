@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<index version="1" name="REAPER Plugin Organizer">
+  <category name="reaper">
+    <reapack name="REAPER Plugin Organizer.lua" type="script" desc="REAPER Plugin Organizer">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Dockable VST, VST3, AU and CLAP visibility manager for macOS. Requires REAPER 7, ReaImGui 0.10+ and the SWS Extension (install separately). Run REAPER Plugin Organizer from the Actions list after installation.\par}
+}
+]]></description>
+        <link rel="website">https://github.com/jamiethemorris/reaper-plugin-organizer</link>
+      </metadata>
+      <version name="1.2.1" author="jamiethemorris" time="2026-11-15T06:30:56Z">
+        <changelog><![CDATA[First ReaPack release; installs the action and supporting libraries together.]]></changelog>
+        <source main="main" platform="darwin">https://raw.githubusercontent.com/jamiethemorris/reaper-plugin-organizer/7bda9e185a2a05f08410a5799917d96bb86f451d/reaper/REAPER%20Plugin%20Organizer.lua</source>
+        <source platform="darwin" file="lib/catalog.lua">https://raw.githubusercontent.com/jamiethemorris/reaper-plugin-organizer/7bda9e185a2a05f08410a5799917d96bb86f451d/reaper/lib/catalog.lua</source>
+        <source platform="darwin" file="lib/matches.lua">https://raw.githubusercontent.com/jamiethemorris/reaper-plugin-organizer/7bda9e185a2a05f08410a5799917d96bb86f451d/reaper/lib/matches.lua</source>
+        <source platform="darwin" file="lib/model.lua">https://raw.githubusercontent.com/jamiethemorris/reaper-plugin-organizer/7bda9e185a2a05f08410a5799917d96bb86f451d/reaper/lib/model.lua</source>
+        <source platform="darwin" file="lib/theme.lua">https://raw.githubusercontent.com/jamiethemorris/reaper-plugin-organizer/7bda9e185a2a05f08410a5799917d96bb86f451d/reaper/lib/theme.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <metadata>
+    <link rel="website" href="https://github.com/jamiethemorris/reaper-plugin-organizer">GitHub</link>
+  </metadata>
+</index>
